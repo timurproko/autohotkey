@@ -127,14 +127,11 @@ DeactivateAll() {
 }
 
 GetKeyboardLanguage(current) {
-    ; Use GetGUIThreadInfo(0) to get the thread that receives keyboard input.
-    ; GUITHREADINFO: cbSize=0, flags=4, hwndActive=8, hwndFocus=16, hwndCapture=24, ...
-    ; Try hwndFocus (keyboard focus), then hwndCaret (window with caret), then hwndActive.
     tid := 0
     gti := Buffer(72, 0)
     NumPut("UInt", 72, gti, 0)
     if DllCall("GetGUIThreadInfo", "UInt", 0, "Ptr", gti) {
-        for hwnd in [NumGet(gti, 16, "Ptr"), NumGet(gti, 48, "Ptr"), NumGet(gti, 8, "Ptr")]  ; hwndFocus, hwndCaret, hwndActive
+        for hwnd in [NumGet(gti, 16, "Ptr"), NumGet(gti, 48, "Ptr"), NumGet(gti, 8, "Ptr")]
             if hwnd && (tid := DllCall("GetWindowThreadProcessId", "Ptr", hwnd, "Ptr", 0))
                 break
     }

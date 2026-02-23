@@ -13,6 +13,8 @@ A_HotkeyInterval := 0
 
 #HotIf GetKeyboardLanguage(en)
 !sc00C:: Send("{U+2013}") ; –
+sc02B::  Send("{U+005C}") ; \
++sc02B:: Send("{U+007C}") ; |
 #HotIf
 
 #HotIf GetKeyboardLanguage(ru) || GetKeyboardLanguage(ua)
@@ -52,15 +54,22 @@ sc056::  Send("{U+003E}") ; >
 !sc034:: Send("{U+2265}") ; ≥
 !sc01A:: Send("{U+201C}") ; “
 !sc027:: Send("{U+2026}") ; …
-sc02B::  Send("{U+005C}") ; \
-+sc02B:: Send("{U+007C}") ; |
+#HotIf
+
+#HotIf GetKeyboardLanguage(ru)
+sc02B::  Send("{U+0451}") ; ё
++sc02B:: Send("{U+0401}") ; Ё
 #HotIf
 
 #HotIf GetKeyboardLanguage(ua)
 sc01F::  Send("{U+0438}") ; и
-sc030::  Send("{U+0456}") ; і
 +sc01F:: Send("{U+0418}") ; И
+sc030::  Send("{U+0456}") ; і
 +sc030:: Send("{U+0406}") ; І
+sc01B::  Send("{U+0457}") ; ї
++sc01B:: Send("{U+0407}") ; Ї
+sc02B::  Send("{U+0491}") ; ґ
++sc02B:: Send("{U+0490}") ; Ґ
 #HotIf
 
 ; Functional Keys
