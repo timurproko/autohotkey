@@ -48,8 +48,8 @@ A_HotkeyInterval := 0
 
 ; Windows Folders
 windowsFolder1 := "This PC - File Explorer"
-windowsFolder2 := "Downloads - File Explorer"
-windowsFolder3 := "Documents - File Explorer"
+windowsFolder2 := A_UserName
+windowsFolder3 := "Downloads - File Explorer"
 windowsFolder4 := "_scripts - File Explorer"
 
 #HotIf !WinExist(windowsFolder1) and !WinActive(windowsCalculator)
@@ -63,7 +63,8 @@ sc067:: ControlApp("activate", windowsFolder1)
 #HotIf
 
 #HotIf !WinExist(windowsFolder2) and !WinActive(windowsCalculator)
-sc068:: ControlApp("launch", "C:\Users\" . A_UserName . "\Downloads")
+; sc069:: ControlApp("launch", A_MyDocuments)
+sc068:: ControlApp("launch", "C:\Users\" . A_UserName . "\")
 #HotIf
 #HotIf WinActive(windowsFolder2) and !WinActive(windowsCalculator)
 sc068:: ControlApp("close", windowsFolder2)
@@ -73,7 +74,7 @@ sc068:: ControlApp("activate", windowsFolder2)
 #HotIf
 
 #HotIf !WinExist(windowsFolder3) and !WinActive(windowsCalculator)
-sc069:: ControlApp("launch", A_MyDocuments)
+sc069:: ControlApp("launch", "C:\Users\" . A_UserName . "\Downloads")
 #HotIf
 #HotIf WinActive(windowsFolder3) and !WinActive(windowsCalculator)
 sc069:: ControlApp("close", windowsFolder3)
@@ -117,29 +118,29 @@ Escape:: ControlApp("close", appMagicPods)
 #HotIf
 
 ; Arc Browser
-; #HotIf !WinExist(browserArc)
-; !#a:: ControlApp("launch", A_Programs . "/Arc", "maximized")
-; #HotIf
-; #HotIf WinActive(browserArc)
-; !#a:: ControlApp("minimize", browserArc)
-; ; #Escape:: ControlApp("close", browserArc)
-; #HotIf
-; #HotIf !WinActive(browserArc)
-; !#a:: ControlApp("activate", browserArc)
-; #HotIf
+#HotIf !WinExist(browserArc)
+!#a:: ControlApp("launch", A_Programs . "/Arc", "maximized")
+#HotIf
+#HotIf WinActive(browserArc)
+!#a:: ControlApp("minimize", browserArc)
+; #Escape:: ControlApp("close", browserArc)
+#HotIf
+#HotIf !WinActive(browserArc)
+!#a:: ControlApp("activate", browserArc)
+#HotIf
 
 ; Copilot
-#HotIf !WinExist(windowsCopilot)
-!#a:: ControlApp("launch", "explorer.exe shell:AppsFolder\Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe!Microsoft.MicrosoftOfficeHub")
-#HotIf
-#HotIf WinActive(windowsCopilot)
-!#a:: ControlApp("minimize", windowsCopilot)
-Escape:: ControlApp("close", windowsCopilot)
-#Escape:: ProcessClose("M365Copilot.exe")
-#HotIf
-#HotIf !WinActive(windowsCopilot)
-!#a:: ControlApp("activate", windowsCopilot)
-#HotIf
+; #HotIf !WinExist(windowsCopilot)
+; !#a:: ControlApp("launch", "explorer.exe shell:AppsFolder\Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe!Microsoft.MicrosoftOfficeHub")
+; #HotIf
+; #HotIf WinActive(windowsCopilot)
+; !#a:: ControlApp("minimize", windowsCopilot)
+; Escape:: ControlApp("close", windowsCopilot)
+; #Escape:: ProcessClose("M365Copilot.exe")
+; #HotIf
+; #HotIf !WinActive(windowsCopilot)
+; !#a:: ControlApp("activate", windowsCopilot)
+; #HotIf
 
 ; Tray Apps
 ; Spotify

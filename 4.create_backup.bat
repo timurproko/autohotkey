@@ -2,13 +2,9 @@
 setlocal enabledelayedexpansion
 
 :: Get the directory of the script
-set scriptDir=%~dp0
-:: Remove trailing backslash if present
-set scriptDir=%scriptDir:~0,-1%
-
-:: Define folder paths
-set settingsFolder=%scriptDir%\_scripts
-set archiveFolder=%scriptDir%\_backups
+set workingFolder=%~dp0
+set settingsFolder=%workingFolder%_scripts
+set archiveFolder=%workingFolder%_backups
 
 :: Create _archive folder if it doesn't exist
 if not exist "%archiveFolder%" (

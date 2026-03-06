@@ -3,6 +3,7 @@
 #SingleInstance Force
 KeyHistory(0)
 
+Run(A_ScriptDir "\system_admin.ahk")
 Run(A_ScriptDir "\apps_3d.ahk")
 Run(A_ScriptDir "\apps_browsers.ahk")
 Run(A_ScriptDir "\apps_generic.ahk")

@@ -164,8 +164,8 @@ sc06A:: Send("{Backspace}")
 #HotIf
 
 ; Windows Explorer
-; Win+H : Show/Hide Hidden Files
-#HotIf WinActive(windowsExplorer) and WinActive(windowsExplorerClass)
+; Show/Hide Hidden Files
+#HotIf (WinActive(windowsExplorer) and WinActive(windowsExplorerClass)) or WinActive("ahk_class #32770")
 value2 := RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\", "Hidden", 2)
 ^+h::
 {
