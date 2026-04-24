@@ -15,6 +15,9 @@ A_HotkeyInterval := 0
 #HotIf  WinActive(windowsTeams)
 Escape:: WinClose
 #HotIf
+#HotIf WinActive("Windhawk")
+Escape:: WinClose
+#HotIf
 
 ; Close
 #HotIf WinActive(app7zip) or WinActive(appOutlook)
@@ -47,27 +50,24 @@ global lastGitKey := ""
 }
 Escape:: Send("^c")
 ^c:: Send("^+c")
-^v:: {
-    ClipWait
-    A_Clipboard := A_Clipboard
-    Sleep 10
-    Send(Trim(A_Clipboard, " "))
-}
+^v:: Send("{RButton}")
+^+q:: Send("+{Tab}")
 ^g:: {
     Send("^u")
     return
 }
 #HotIf
 #HotIf A_PriorHotkey = "^g"
-*a:: RunGitCommand('a', 'git add .')
-*b:: RunGitCommand('b', 'git branch')
+*a:: RunGitCommand('a', 'git add ')
+*b:: RunGitCommand('b', 'git branch ')
 *c:: RunGitCommand('c', 'git clean -fd')
-*d:: RunGitCommand('d', 'git diff')
+*d:: RunGitCommand('d', 'git diff ')
 *e:: RunGitCommand('e', 'open .')
-*i:: RunGitCommand('i', 'git switch ')
+*f:: RunGitCommand('f', 'git fetch origin')
+*h:: RunGitCommand('h', 'git switch ')
 *k:: RunGitCommand('k', 'rm -f .git/index.lock')
 *l:: RunGitCommand('l', 'git log', 'git log --oneline')
-*m:: RunGitCommand('m', 'git merge')
+*m:: RunGitCommand('m', 'git merge ')
 *n:: RunGitCommand('n', 'git clone ')
 *o:: RunGitCommand('o', 'git checkout ')
 *p:: RunGitCommand('p', 'git push origin HEAD')
@@ -76,8 +76,7 @@ Escape:: Send("^c")
 *s:: RunGitCommand('s', 'git status')
 *u:: RunGitCommand('u', 'git pull')
 *x:: RunGitCommand('x', 'git reset --hard HEAD')
-*w:: RunGitCommand('w', 'git show --name-only')
-; *r:: RunGitCommand('r', 'git remote set-url origin ')
+*w:: RunGitCommand('w', 'git show --name-only ')
 #HotIf
 
 ; Elgato

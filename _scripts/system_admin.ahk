@@ -14,11 +14,3 @@ A_HotkeyInterval := 0
 
 ; Win + Backspace : Recycle Bin
 #BackSpace:: Run(A_ComSpec " /c `"echo Y|PowerShell -NoProfile -Command Clear-RecycleBin`"", , "Hide")
-
-; Hide Notifications
-SetTimer(CloseEgui, 500)  ; check twice per second
-CloseEgui() {
-    for hwnd in WinGetList("ahk_exe egui.exe") {
-        try WinClose(hwnd)
-    }
-}

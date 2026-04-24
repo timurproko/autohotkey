@@ -53,7 +53,8 @@ A_HotkeyInterval := 0
 
 ; Alt+V : Paste Without Formatting
 !v:: {
-    if (WinActive(browserArc) and GetUrlValue("https://app.slack.com/") or WinActive(appCursor) or WinActive(appVSCode) or WinActive(appJBRider)) {
+    if (WinActive(browserArc) and GetUrlValue("https://app.slack.com/") or WinActive(appCursor) or WinActive(appVSCode) or
+    WinActive(appJBRider)) {
         Send("!{v}")
     }
     else {
@@ -187,3 +188,6 @@ value2 := RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\E
 #HotIf WinActive("ahk_exe SnippingTool.exe") or WinActive("ahk_exe mspaint.exe")
 #Escape:: WinClose
 #HotIf
+
+; Win + Backspace : Recycle Bin
+#BackSpace:: Run(A_ComSpec " /c `"echo Y|PowerShell -NoProfile -Command Clear-RecycleBin`"", , "Hide")

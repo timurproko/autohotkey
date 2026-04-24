@@ -235,15 +235,17 @@ MyWinMinimize() {
     WinMinimize("A")
 }
 
-MyWinMaximize() {
+MyWinMaximize(win := "A") {
     try {
-        winState := WinGetMinMax("A")
+        winState := WinGetMinMax(win)
         if (winState = 0)
-            WinMaximize("A")
+            WinMaximize(win)
         else if (winState = 1)
-            WinRestore("A")
-        else
-            return
+            WinRestore(win)
+        else if (winState = -1) {
+            WinRestore(win)
+            WinMaximize(win)
+        }
     }
 }
 

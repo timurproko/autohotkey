@@ -35,18 +35,18 @@ Space:: {
 #HotIf
 
 ; Unity Hub
-#HotIf WinActive(appUnityHub)
-1:: ClickAtPosition("50%%", "320px")
-2:: ClickAtPosition("50%%", "410px")
-3:: ClickAtPosition("50%%", "480px")
-4:: ClickAtPosition("50%%", "570px")
-5:: ClickAtPosition("50%%", "660px")
-6:: ClickAtPosition("50%%", "750px")
-7:: ClickAtPosition("50%%", "840px")
-8:: ClickAtPosition("50%%", "930px")
-9:: ClickAtPosition("50%%", "1020px")
-0:: ClickAtPosition("50%%", "1110px")
-#HotIf
+; #HotIf WinActive(appUnityHub)
+; 1:: ClickAtPosition("50%%", "320px")
+; 2:: ClickAtPosition("50%%", "410px")
+; 3:: ClickAtPosition("50%%", "480px")
+; 4:: ClickAtPosition("50%%", "570px")
+; 5:: ClickAtPosition("50%%", "660px")
+; 6:: ClickAtPosition("50%%", "750px")
+; 7:: ClickAtPosition("50%%", "840px")
+; 8:: ClickAtPosition("50%%", "930px")
+; 9:: ClickAtPosition("50%%", "1020px")
+; 0:: ClickAtPosition("50%%", "1110px")
+; #HotIf
 
 ; Unity Editor
 #HotIf WinActive(appUnity)

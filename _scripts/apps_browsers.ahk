@@ -85,7 +85,7 @@ Enter:: {
         "https://copilot.microsoft.com/") or GetUrlValue("https://gemini.google.com/") or GetUrlValue(
             "https://teams.microsoft.com/") or GetUrlValue("https://discord.com/channels/") or GetUrlValue(
                 "https://www.linkedin.com/messaging/") or GetUrlValue("https://web.telegram.org/")
-            or GetUrlValue("https://app.slack.com/")) {
+            or GetUrlValue("https://app.slack.com/") or GetUrlValue("https://m365.cloud.microsoft/chat/")) {
         Send("+{sc01c}")
     }
     else {
@@ -107,7 +107,7 @@ Enter:: {
 
 ;== (-) ==
 sc00c:: {
-    if (GetUrlValue("https://www.youtube.com/watch")) {
+    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://drive.google.com/")) {
         Send("+{sc033}")
     }
     else if (GetUrlValue("https://www.udemy.com/")) {
@@ -120,7 +120,7 @@ sc00c:: {
 
 ;== (+) ==
 sc00d:: {
-    if (GetUrlValue("https://www.youtube.com/watch")) {
+    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://drive.google.com/")) {
         Send("+{sc034}")
     }
     else if (GetUrlValue("https://www.udemy.com/")) {
@@ -136,7 +136,7 @@ sc00d:: {
     if (GetUrlValue("https://www.udemy.com/")) {
         return
     }
-    else if (GetUrlValue("https://www.youtube.com/watch")) {
+    else if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc024}")
     }
     else {
@@ -148,7 +148,7 @@ sc00d:: {
     if (GetUrlValue("https://www.udemy.com/")) {
         return
     }
-    else if (GetUrlValue("https://www.youtube.com/watch")) {
+    else if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc026}")
     }
     else {
@@ -296,7 +296,7 @@ F9:: {
 
 ;== (F10) ==
 F10:: {
-    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/")) {
+    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc032}")
     }
     else if (GetUrlValue("https://music.youtube.com/")) {
@@ -309,7 +309,7 @@ F10:: {
 
 ;== (F11) ==
 F11:: {
-    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/")) {
+    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc050}")
     }
     else if (GetUrlValue("https://music.youtube.com/")) {
@@ -322,7 +322,7 @@ F11:: {
 
 ;== (F12) ==
 F12:: {
-    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/")) {
+    if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc048}")
     }
     else if (GetUrlValue("https://music.youtube.com/")) {

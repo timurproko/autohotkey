@@ -50,7 +50,7 @@ A_HotkeyInterval := 0
 windowsFolder1 := "This PC - File Explorer"
 windowsFolder2 := A_UserName
 windowsFolder3 := "Downloads - File Explorer"
-windowsFolder4 := "_scripts - File Explorer"
+windowsFolder4 := "Configs - File Explorer"
 
 #HotIf !WinExist(windowsFolder1) and !WinActive(windowsCalculator)
 sc067:: ControlApp("launch", "C:\Windows\explorer.exe /e,::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
@@ -84,7 +84,7 @@ sc069:: ControlApp("activate", windowsFolder3)
 #HotIf
 
 #HotIf !WinExist(windowsFolder4) and !WinActive(windowsCalculator)
-sc06A:: ControlApp("launch", A_ScriptDir)
+sc06A:: ControlApp("launch", "D:\Configs\")
 #HotIf
 #HotIf WinActive(windowsFolder4) and !WinActive(windowsCalculator)
 sc06A:: ControlApp("close", windowsFolder4)
