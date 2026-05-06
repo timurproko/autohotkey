@@ -40,7 +40,7 @@ WinActivePartialMatch(substrings*) {
     return true
 }
 
-RunGitCommand(key, cmd1, cmd2 := "") {
+RunTerminalCommand(key, cmd1, cmd2 := "") {
     global toggleMode, lastGitKey
 
     if (lastGitKey != key) {
@@ -510,4 +510,29 @@ FocusedText(value) {
     catch {
         return -1
     }
+}
+
+MoveToMainMonitor() {
+    hwnd := WinExist("A")
+    if !hwnd
+        return
+
+    ; Restore if minimized
+    if WinGetMinMax(hwnd) = -1
+        WinRestore hwnd
+
+    ; Primary monitor is ALWAYS 1 in AHK v2 (as you use it)
+    MonitorGetWorkArea 1, &l, &t, &r, &b
+    workW := r - l
+    workH := b - t
+
+    ; Get current window size
+    WinGetPos &wx, &wy, &ww, &wh, hwnd
+
+    ; Center position
+    x := l + Floor((workW - ww) / 2)
+    y := t + Floor((workH - wh) / 2)
+
+    ; Move window to center of primary monitor work area
+    WinMove x, y, , , hwnd
 }

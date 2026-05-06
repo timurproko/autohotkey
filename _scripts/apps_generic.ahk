@@ -38,47 +38,6 @@ sc01c:: Send("+{sc01c}")
 ^sc01c:: Send("{sc01c}")
 #HotIf
 
-; Windows Terminal
-global toggleMode := 0
-global lastGitKey := ""
-
-#HotIf WinActive(windowsTerminal)
-!Space:: Send("^+p")
-^Backspace:: {
-    Send("clear")
-    Send("{Enter}")
-}
-Escape:: Send("^c")
-^c:: Send("^+c")
-^v:: Send("{RButton}")
-^+q:: Send("+{Tab}")
-^g:: {
-    Send("^u")
-    return
-}
-#HotIf
-#HotIf A_PriorHotkey = "^g"
-*a:: RunGitCommand('a', 'git add ')
-*b:: RunGitCommand('b', 'git branch ')
-*c:: RunGitCommand('c', 'git clean -fd')
-*d:: RunGitCommand('d', 'git diff ')
-*e:: RunGitCommand('e', 'open .')
-*f:: RunGitCommand('f', 'git fetch origin')
-*h:: RunGitCommand('h', 'git switch ')
-*k:: RunGitCommand('k', 'rm -f .git/index.lock')
-*l:: RunGitCommand('l', 'git log', 'git log --oneline')
-*m:: RunGitCommand('m', 'git merge ')
-*n:: RunGitCommand('n', 'git clone ')
-*o:: RunGitCommand('o', 'git checkout ')
-*p:: RunGitCommand('p', 'git push origin HEAD')
-*q:: RunGitCommand('q', 'git commit -m "', 'git commit --amend -m "')
-*r:: RunGitCommand('r', 'git restore ', 'git restore --staged ')
-*s:: RunGitCommand('s', 'git status')
-*u:: RunGitCommand('u', 'git pull')
-*x:: RunGitCommand('x', 'git reset --hard HEAD')
-*w:: RunGitCommand('w', 'git show --name-only ')
-#HotIf
-
 ; Elgato
 #HotIf WinActive(appElgatoCameraHub)
 Escape:: WinClose

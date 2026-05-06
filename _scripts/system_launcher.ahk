@@ -12,18 +12,6 @@ SetControlDelay (-1)
 A_HotkeyInterval := 0
 
 ; Windows Apps
-; Terminal
-#HotIf !WinExist(windowsTerminal)
-#sc029:: ControlApp("launch", "C:\Users\" . A_UserName . "\AppData\Local\Microsoft\WindowsApps\wt.exe", "maximized")
-#HotIf
-#HotIf WinActive(windowsTerminal)
-#sc029:: ControlApp("minimize", windowsTerminal)
-#Escape:: ControlApp("close", windowsTerminal)
-#HotIf
-#HotIf !WinActive(windowsTerminal)
-#sc029:: ControlApp("activate", windowsTerminal)
-#HotIf
-
 ; Settings
 #HotIf !WinExist(windowsSettings)
 #,:: ControlApp("launch", "ms-settings:", "maximized")
