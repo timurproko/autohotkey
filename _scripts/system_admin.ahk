@@ -29,7 +29,7 @@ A_HotkeyInterval := 0
 
 ; Windows Terminal
 global toggleMode := 0
-global lastGitKey := ""
+global lastKey := ""
 
 #HotIf WinActive(windowsTerminal)
 !Space:: Send("^+p")
@@ -41,10 +41,19 @@ Escape:: Send("^c")
 ^c:: Send("^+c")
 ^v:: Send("{RButton}")
 ^+q:: Send("+{Tab}")
+
+;Priority Keys
 ^g:: {
     Send("^u")
     return
 }
+
+^o:: {
+    Send("^u")
+    return
+}
+
+;Terminal Commands
 #HotIf
 #HotIf A_PriorHotkey = "^g"
 *a:: RunTerminalCommand('a', 'git add ')
@@ -66,4 +75,9 @@ Escape:: Send("^c")
 *u:: RunTerminalCommand('u', 'git pull')
 *x:: RunTerminalCommand('x', 'git reset --hard HEAD')
 *w:: RunTerminalCommand('w', 'git show --name-only ')
+#HotIf
+
+
+#HotIf A_PriorHotkey = "^o"
+*o:: RunTerminalCommand('o', '/cwd D:\Git\spatial-hand\unity\SpatialHand\')
 #HotIf

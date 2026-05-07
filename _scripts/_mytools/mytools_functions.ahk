@@ -41,11 +41,11 @@ WinActivePartialMatch(substrings*) {
 }
 
 RunTerminalCommand(key, cmd1, cmd2 := "") {
-    global toggleMode, lastGitKey
+    global toggleMode, lastKey
 
-    if (lastGitKey != key) {
+    if (lastKey != key) {
         toggleMode := 0
-        lastGitKey := key
+        lastKey := key
     }
 
     if (cmd2 = "") {
