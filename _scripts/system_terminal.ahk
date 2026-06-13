@@ -9,12 +9,11 @@ SetWinDelay (-1)
 SetKeyDelay (-1, -1, -1)
 SetMouseDelay (-1)
 SetControlDelay (-1)
-RunAsAdmin()
 A_HotkeyInterval := 0
 
 ; Terminal
 #HotIf !WinExist(windowsTerminal)
-#sc029:: ControlApp("launch", "C:\Users\" . A_UserName . "\AppData\Local\Microsoft\WindowsApps\wt.exe", "maximized")
+#sc029:: ControlApp("launch", "C:\Users\" . A_UserName . "\AppData\Local\Microsoft\WindowsApps\wt.exe")
 #HotIf
 #HotIf WinActive(windowsTerminal)
 #sc029:: ControlApp("minimize", windowsTerminal)
@@ -27,34 +26,30 @@ A_HotkeyInterval := 0
 ; Win + Backspace : Recycle Bin
 #BackSpace:: Run(A_ComSpec " /c `"echo Y|PowerShell -NoProfile -Command Clear-RecycleBin`"", , "Hide")
 
-; Windows Terminal
+; Windows Terminal General
 global toggleMode := 0
 global lastKey := ""
 
 #HotIf WinActive(windowsTerminal)
 !Space:: Send("^+p")
-^Backspace:: {
-    Send("clear")
-    Send("{Enter}")
-}
-Escape:: Send("^c")
 ^c:: Send("^+c")
 ^v:: Send("{RButton}")
 ^+q:: Send("+{Tab}")
+#HotIf
 
-;Priority Keys
+#HotIf WinActive(weztermTerminal)
+#Escape:: WinClose
+!Space:: Send("^+p")
+^+q:: Send("+{Tab}")
+#HotIf
+
+; Git Bash
+#HotIf WinActive(windowsTerminal) and WinActive("Git Bash") or WinActive(weztermTerminal) and WinActive("bash.exe")
 ^g:: {
     Send("^u")
     return
 }
 
-^o:: {
-    Send("^u")
-    return
-}
-
-;Terminal Commands
-#HotIf
 #HotIf A_PriorHotkey = "^g"
 *a:: RunTerminalCommand('a', 'git add ')
 *b:: RunTerminalCommand('b', 'git branch ')
@@ -62,6 +57,7 @@ Escape:: Send("^c")
 *d:: RunTerminalCommand('d', 'git diff ')
 *e:: RunTerminalCommand('e', 'open .')
 *f:: RunTerminalCommand('f', 'git fetch origin')
+*g:: RunTerminalCommand('g', 'lazygit', , true)
 *h:: RunTerminalCommand('h', 'git switch ')
 *k:: RunTerminalCommand('k', 'rm -f .git/index.lock')
 *l:: RunTerminalCommand('l', 'git log', 'git log --oneline')
@@ -76,8 +72,4 @@ Escape:: Send("^c")
 *x:: RunTerminalCommand('x', 'git reset --hard HEAD')
 *w:: RunTerminalCommand('w', 'git show --name-only ')
 #HotIf
-
-
-#HotIf A_PriorHotkey = "^o"
-*o:: RunTerminalCommand('o', '/cwd D:\Git\spatial-hand\unity\SpatialHand\')
 #HotIf

@@ -11,8 +11,134 @@ SetMouseDelay (-1)
 SetControlDelay (-1)
 A_HotkeyInterval := 0
 
-#HotIf WinActive(appHindie) or WinActive(appHoudini)
+; ------------------------------------------------------------
+; Window title groups (unique values only)
+; ------------------------------------------------------------
+
+g_CloseOnEscActive := [
+    "Display Options",
+    "Snap Options",
+    "Houdini Preferences",
+    "Open",
+    "Save As",
+    "Choose",
+    "Edit Group Color",
+    "Aliases/Variables",
+    "Construction Plane Parameters",
+    "treecontrol",
+    "rendergallery",
+    "Parameters",
+    "Animation Editor",
+    "Houdini Indie Limited-Commercial - chaneditor",
+    "Houdini Indie Limited-Commercial - Animation Editor",
+    "Load Color Correction LUT"
+]
+
+g_CloseActionsActive := [
+    "Color Editor",
+    "Select Color",
+    "Aliases",
+    "Variables",
+    "Expressions",
+    "treecontrol",
+    "Edit Parameter Interface",
+    "chaneditor",
+    "Animation Editor",
+    "Python Shell"
+]
+
+g_ActivateAndCloseExist := [
+    "Houdini Console",
+    "Network View Display Options",
+    "Color Editor",
+    "Select Color",
+    "Find Node",
+    "Aliases",
+    "Variables",
+    "Expressions",
+    "Flipbook",
+    "treecontrol"
+]
+
+g_ActivateActionsExist := [
+    "Color Editor",
+    "Select Color",
+    "Aliases",
+    "Variables",
+    "Expressions",
+    "treecontrol",
+    "Edit Parameter Interface",
+    "chaneditor",
+    "Animation Editor",
+    "Python Shell"
+]
+
+; ------------------------------------------------------------
+; Helpers
+; ------------------------------------------------------------
+
+IsHoudiniActive() {
+    global appHoudini, appHindie
+    return WinActive(appHoudini) || WinActive(appHindie)
+}
+
+AnyWindowActive(titles) {
+    for title in titles {
+        if WinActive(title)
+            return true
+    }
+    return false
+}
+
+AnyWindowExists(titles) {
+    for title in titles {
+        if WinExist(title)
+            return true
+    }
+    return false
+}
+
+ActivateIfExists(title) {
+    try {
+        if WinExist(title)
+            WinActivate(title)
+    }
+}
+
+CloseIfExists(title) {
+    try {
+        if WinExist(title)
+            WinClose(title)
+    }
+}
+
+ActivateFirstExisting(titles) {
+    for title in titles {
+        if WinExist(title) {
+            WinActivate(title)
+            return true
+        }
+    }
+    return false
+}
+
+CloseFirstExisting(titles) {
+    for title in titles {
+        if WinExist(title) {
+            WinClose(title)
+            return true
+        }
+    }
+    return false
+}
+
+; ------------------------------------------------------------
+; Main Houdini hotkeys
+; ------------------------------------------------------------
+
+#HotIf IsHoudiniActive()
 !Space:: Send("^+f")
+
 ^!r:: {
     Send("^!r")
     Sleep 50
@@ -21,63 +147,65 @@ A_HotkeyInterval := 0
 }
 #HotIf
 
+; Find Node special case
 #HotIf WinActive("Find Node")
 !Space:: WinClose()
 #HotIf
 
-#HotIf WinActive("Display Options") or WinActive("Snap Options") or WinActive("Houdini Preferences") or WinActive(
-    "Open") or WinActive("Save As") or WinActive("Choose") or WinActive("choose") or WinActive("Edit Group Color") or
-WinActive("Aliases/Variables") or WinActive("Construction Plane Parameters") or WinActive("treecontrol") or WinActive(
-    "rendergallery") or WinActive("Parameters") or WinActive("Animation Editor") or WinActive(
-        "Houdini Indie Limited-Commercial - chaneditor") or WinActive(
-            "Houdini Indie Limited-Commercial - Animation Editor") or WinActive("Load Color Correction LUT")
+; Esc closes currently active Houdini dialogs
+#HotIf IsHoudiniActive() && AnyWindowActive(g_CloseOnEscActive)
 Escape:: WinClose()
 #HotIf
 
-#HotIf WinActive("Color Editor") or WinActive("Select Color") or WinActive("Aliases") or WinActive("Variables") or
-WinActive("Expressions") or WinActive("treecontrol") or WinActive("Edit Parameter Interface") or WinActive("chaneditor"
-) or WinActive("Animation Editor") or WinActive("Python Shell")
+; Close specific active Houdini windows
+#HotIf IsHoudiniActive() && AnyWindowActive(g_CloseActionsActive)
+
 ^+v:: {
-    try WinClose("Aliases")
-    try WinClose("Variables")
-    try WinClose("Expressions")
+    CloseIfExists("Aliases")
+    CloseIfExists("Variables")
+    CloseIfExists("Expressions")
 }
-; ^+c::   WinClose("Select Color")
-^w:: WinClose("treecontrol")
-!e:: WinClose("Edit Parameter Interface")
+
+^w:: CloseIfExists("treecontrol")
+
+!e:: CloseIfExists("Edit Parameter Interface")
+
 ^+p:: {
-    WinClose("Python Shell")
-    WinActivate(appHoudini)
+    CloseIfExists("Python Shell")
+    if WinExist(appHoudini)
+        WinActivate(appHoudini)
+    else if WinExist(appHindie)
+        WinActivate(appHindie)
 }
+
 ^+a:: {
-    try WinClose("chaneditor")
-    try WinClose("Animation Editor")
+    CloseIfExists("chaneditor")
+    CloseIfExists("Animation Editor")
 }
 #HotIf
 
-#HotIf WinExist("Houdini Console") or WinExist("Network View Display Options") or WinExist("Color Editor") or WinExist(
-    "Select Color") or WinExist("Find Node") or WinExist("Aliases") or WinExist("Variables") or WinExist("Expressions") or
-WinExist("Flipbook") or WinExist("treecontrol")
-Escape:: WinActivateAndClose (["Houdini Console", "Network View Display Options", "Color Editor", "Select Color",
-    "Find Node", "Aliases", "Variables", "Expressions", "Flipbook", "treecontrol"])
+; Esc activates and closes first matching existing floating window
+#HotIf IsHoudiniActive() && AnyWindowExists(g_ActivateAndCloseExist)
+Escape:: WinActivateAndClose(g_ActivateAndCloseExist)
 #HotIf
 
-#HotIf WinActive(appHindie)
-#HotIf WinExist("Color Editor") or WinExist("Select Color") or WinExist("Aliases") or WinExist("Variables") or WinExist(
-    "Expressions") or WinExist("treecontrol") or WinExist("Edit Parameter Interface") or WinExist("chaneditor") or
-WinExist("Animation Editor") or WinExist("Python Shell")
+; Activate specific existing Houdini windows
+#HotIf IsHoudiniActive() && AnyWindowExists(g_ActivateActionsExist)
+
 ^+v:: {
-    try WinActivate("Aliases")
-    try WinActivate("Variables")
-    try WinActivate("Expressions")
+    ActivateIfExists("Aliases")
+    ActivateIfExists("Variables")
+    ActivateIfExists("Expressions")
 }
-!e:: WinActivate("Edit Parameter Interface")
-^+p:: WinActivate("Python Shell")
+
+!e:: ActivateIfExists("Edit Parameter Interface")
+
+^+p:: ActivateIfExists("Python Shell")
+
 ^+a:: {
-    try WinActivate("chaneditor")
-    try WinActivate("Animation Editor")
+    ActivateIfExists("chaneditor")
+    ActivateIfExists("Animation Editor")
 }
-#HotIf
 #HotIf
 
 #HotIf WinActive("ahk_exe houdini_launcher.exe")

@@ -12,7 +12,7 @@ SetControlDelay (-1)
 A_HotkeyInterval := 0
 
 ; Hide
-#HotIf  WinActive(windowsTeams)
+#HotIf WinActive(windowsTeams)
 Escape:: WinClose
 #HotIf
 #HotIf WinActive("Windhawk")
@@ -28,6 +28,9 @@ Escape:: WinClose
 #HotIf
 #HotIf WinActive(windowsOneDrive)
 #Escape:: ProcessClose ("OneDrive.exe")
+#HotIf
+#HotIf WinActive("ahk_exe speakcli.exe")
+Escape:: WinClose
 #HotIf
 
 ; Enter
@@ -82,8 +85,8 @@ Escape:: ControlApp("close", appSpotify)
 f8:: Send("{Space}")
 f7:: Send("^{Left}")
 f9:: Send("^{Right}")
-f11:: Send("^{Down}")
-f12:: Send("^{Up}")
+f12:: Send("^{Down}")
+f13:: Send("^{Up}")
 !0:: Send("!+0")
 !1:: Send("!+1")
 !2:: Send("!+2")
@@ -152,7 +155,7 @@ Escape:: WinMinimize
 
 ; OBS
 #HotIf WinActive(appOBS)
-f8:: {
+f9:: {
     Send("{f8}")
     WinHide
 }
@@ -186,13 +189,28 @@ sc01c:: Send("+{sc01c}")
 ^sc01c:: Send("{sc01c}")
 #HotIf
 
-; Zppm
+; Zoom
 #HotIf WinActive("Zoom Meeting")
 sc01c:: Send("+{sc01c}")
 ^sc01c:: Send("{sc01c}")
 #HotIf
 #HotIf WinActive("Zoom Workplace")
 Esc:: WinHide
+#HotIf
+
+; Steam
+#HotIf WinActive("ahk_exe steamwebhelper.exe")
+Escape:: WinHide
+#Escape:: {
+    for proc in [
+        "steam.exe",
+        "steamwebhelper.exe",
+        "steamservice.exe",
+        "steamerrorreporter.exe"
+    ] {
+        try ProcessClose proc
+    }
+}
 #HotIf
 
 ; Media Player
@@ -209,6 +227,7 @@ F11:: Send("^f")
 
 ; Figma
 #HotIf WinActive(appFigma)
+#Escape:: WinClose
 F2:: Click 2
 #HotIf
 

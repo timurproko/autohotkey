@@ -50,25 +50,25 @@ sc067:: ControlApp("close", windowsFolder1)
 sc067:: ControlApp("activate", windowsFolder1)
 #HotIf
 
-#HotIf !WinExist(windowsFolder2) and !WinActive(windowsCalculator)
-; sc069:: ControlApp("launch", A_MyDocuments)
-sc068:: ControlApp("launch", "C:\Users\" . A_UserName . "\")
-#HotIf
-#HotIf WinActive(windowsFolder2) and !WinActive(windowsCalculator)
-sc068:: ControlApp("close", windowsFolder2)
-#HotIf
-#HotIf !WinActive(windowsFolder2) and !WinActive(windowsCalculator)
-sc068:: ControlApp("activate", windowsFolder2)
-#HotIf
-
 #HotIf !WinExist(windowsFolder3) and !WinActive(windowsCalculator)
-sc069:: ControlApp("launch", "C:\Users\" . A_UserName . "\Downloads")
+sc068:: ControlApp("launch", "C:\Users\" . A_UserName . "\Downloads")
 #HotIf
 #HotIf WinActive(windowsFolder3) and !WinActive(windowsCalculator)
-sc069:: ControlApp("close", windowsFolder3)
+sc068:: ControlApp("close", windowsFolder3)
 #HotIf
 #HotIf !WinActive(windowsFolder3) and !WinActive(windowsCalculator)
-sc069:: ControlApp("activate", windowsFolder3)
+sc068:: ControlApp("activate", windowsFolder3)
+#HotIf
+
+#HotIf !WinExist(windowsFolder2) and !WinActive(windowsCalculator)
+; sc069:: ControlApp("launch", A_MyDocuments)
+sc069:: ControlApp("launch", "C:\Users\" . A_UserName . "\")
+#HotIf
+#HotIf WinActive(windowsFolder2) and !WinActive(windowsCalculator)
+sc069:: ControlApp("close", windowsFolder2)
+#HotIf
+#HotIf !WinActive(windowsFolder2) and !WinActive(windowsCalculator)
+sc069:: ControlApp("activate", windowsFolder2)
 #HotIf
 
 #HotIf !WinExist(windowsFolder4) and !WinActive(windowsCalculator)
@@ -111,7 +111,7 @@ Escape:: ControlApp("close", appMagicPods)
 #HotIf
 #HotIf WinActive(browserArc)
 !#a:: ControlApp("minimize", browserArc)
-; #Escape:: ControlApp("close", browserArc)
+#Escape:: ControlApp("close", browserArc)
 #HotIf
 #HotIf !WinActive(browserArc)
 !#a:: ControlApp("activate", browserArc)

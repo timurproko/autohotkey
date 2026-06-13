@@ -9,7 +9,7 @@ SetWinDelay (-1)
 SetKeyDelay (-1, -1, -1)
 SetMouseDelay (-1)
 SetControlDelay (-1)
-; RunAsAdmin()
+RunAsAdmin()
 A_HotkeyInterval := 0
 
 ; Win+A : Allway On Top
@@ -95,116 +95,119 @@ F1::
     Run(windowsHelp)
 }
 
-    ; Refresh Process
-    +#r:: RefreshWindowsExplorer
-    +#u:: ProcessClose "unity.exe"
-    +#a:: ProcessClose "arc.exe"
+; Refresh Process
++#r:: RefreshWindowsExplorer
++#u:: ProcessClose "unity.exe"
++#a:: ProcessClose "arc.exe"
 
-    ; Window Management
-    ^LWin Up:: {
-        Send("{LWin up}")
-        return
+; Window Management
+^LWin Up:: {
+    Send("{LWin up}")
+    return
+}
+^#Right:: {
+    Send("{LWin down}{Right}")
+    return
+}
+^#Left:: {
+    Send("{LWin down}{Left}")
+    return
+}
+^#Up:: {
+    Send("{LWin down}{Up}")
+    return
+}
+^#Down:: {
+
+    Send("{LWin down}{Down}")
+    return
+}
+
+; Task Manager
+#Delete:: Send("^+{Escape}")
+if (ProcessExist(windowsTaskmgr)) {
+    #Escape:: ProcessClose "Taskmgr.exe"
+}
+
+; Virtual Desktops
+#Right::
+{
+    SendEvent("{LWin down}{LCtrl down}{Right down}")
+    Sleep TIMEOUT
+    SendEvent("{Right up}{LWin up}{LCtrl up}")
+    return
+}
+#Left::
+{
+    SendEvent("{LWin down}{LCtrl down}{Left down}")
+    Sleep TIMEOUT
+    SendEvent("{Left up}{LWin up}{LCtrl up}")
+    return
+}
+#-:: Send("#^{f4}")
+#=:: Send("#^d")
+
+; Passthrough Symbols
+#;:: Send(";")  ; Emoji
+#.:: Send(".")  ; Emoji
+#\:: Send("\")  ; \
+#/:: Send("/")  ; /
+
+; Win+\ : Minimize/Activate
+#sc056:: {
+    if (WinGetStateUnderCursor()) {
+        MyWinMinimize
+        WinActivateUnderCursor
+    } else {
+        DeactivateAll
+        WinActivateUnderCursor
     }
-    ^#Right:: {
-        Send("{LWin down}{Right}")
-        return
-    }
-    ^#Left:: {
-        Send("{LWin down}{Left}")
-        return
-    }
-    ^#Up:: {
-        Send("{LWin down}{Up}")
-        return
-    }
-    ^#Down:: {
+}
 
-        Send("{LWin down}{Down}")
-        return
-    }
+; Win+Space : Search
+#HotIf !WinActive(windowsSearch)
+#Space:: Send("#s")
+#HotIf
+#HotIf WinActive(windowsSearch)
+#Space:: Send("{Escape}")
+#HotIf
 
-    ; Task Manager
-    #Delete:: Send("^+{Escape}")
-    if (ProcessExist(windowsTaskmgr)) {
-        #Escape:: ProcessClose "Taskmgr.exe"
-    }
+; Windows Calculator
+#HotIf WinActive(windowsCalculator)
+sc059:: Send("{Enter}")
+sc067:: Send("%")
+sc068:: Send("{Delete}")
+sc069:: Send("{Escape}")
+sc06A:: Send("{Backspace}")
+#HotIf
 
-    ; Virtual Desktops
-    #Right::
-    {
-        SendEvent("{LWin down}{LCtrl down}{Right down}")
-        Sleep TIMEOUT
-        SendEvent("{Right up}{LWin up}{LCtrl up}")
-        return
-    }
-    #Left::
-    {
-        SendEvent("{LWin down}{LCtrl down}{Left down}")
-        Sleep TIMEOUT
-        SendEvent("{Left up}{LWin up}{LCtrl up}")
-        return
-    }
-    #-:: Send("#^{f4}")
-    #=:: Send("#^d")
+; Windows Explorer
+; Show/Hide Hidden Files
+#HotIf (WinActive(windowsExplorer) and WinActive(windowsExplorerClass)) or WinActive("ahk_class #32770")
+value2 := RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\", "Hidden", 2)
+^+h::
+{
+    global
+    if (value2 = 1)
+        value2 := "2"
+    else
+        value2 := "1"
+    RegWrite(value2, "REG_DWORD", "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\",
+        "Hidden")
+    Send("{f5}")
+}
 
-    ; Passthrough Symbols
-    #;:: Send(";")  ; Emoji
-    #.:: Send(".")  ; Emoji
-    #\:: Send("\")  ; \
-    #/:: Send("/")  ; /
+; Navigate to Down
+!Down:: Send("{Enter}")
+#HotIf
 
-    ; Win+\ : Minimize/Activate
-    #sc056:: {
-        if (WinGetStateUnderCursor()) {
-            MyWinMinimize
-            WinActivateUnderCursor
-        } else {
-            DeactivateAll
-            WinActivateUnderCursor
-        }
-    }
+; Close
+#HotIf WinActive("ahk_exe SnippingTool.exe") or WinActive("ahk_exe mspaint.exe")
+#Escape:: WinClose
+#HotIf
 
-    ; Win+Space : Search
-    #HotIf !WinActive(windowsSearch)
-    #Space:: Send("#s")
-    #HotIf
-    #HotIf WinActive(windowsSearch)
-    #Space:: Send("{Escape}")
-    #HotIf
+; Win + Backspace : Recycle Bin
+#BackSpace:: Run(A_ComSpec " /c `"echo Y|PowerShell -NoProfile -Command Clear-RecycleBin`"", , "Hide")
 
-    ; Windows Calculator
-    #HotIf WinActive(windowsCalculator)
-    sc059:: Send("{Enter}")
-    sc067:: Send("%")
-    sc068:: Send("{Delete}")
-    sc069:: Send("{Escape}")
-    sc06A:: Send("{Backspace}")
-    #HotIf
-
-    ; Windows Explorer
-    ; Show/Hide Hidden Files
-    #HotIf (WinActive(windowsExplorer) and WinActive(windowsExplorerClass)) or WinActive("ahk_class #32770")
-    value2 := RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\", "Hidden", 2)
-    ^+h::
-    {
-        global
-        if (value2 = 1)
-            value2 := "2"
-        else
-            value2 := "1"
-        RegWrite(value2, "REG_DWORD", "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\",
-            "Hidden")
-        Send("{f5}")
-    }
-
-    ; Navigate to Down
-    !Down:: Send("{Enter}")
-    #HotIf
-
-    ; Close
-    #HotIf WinActive("ahk_exe SnippingTool.exe") or WinActive("ahk_exe mspaint.exe")
-    #Escape:: WinClose
-    #HotIf
-
-    ; Win + Backspace : Recycle Bin
-    #BackSpace:: Run(A_ComSpec " /c `"echo Y|PowerShell -NoProfile -Command Clear-RecycleBin`"", , "Hide")
+; Ctrl+Alt+Shift + D : Toggle Monitor Resolution
+^+!d:: Run('"' A_AhkPath '" "' A_ScriptDir '\_mytools\mytools_toggleResolution.ahk"')

@@ -40,7 +40,7 @@ WinActivePartialMatch(substrings*) {
     return true
 }
 
-RunTerminalCommand(key, cmd1, cmd2 := "") {
+RunTerminalCommand(key, cmd1, cmd2 := "", autoexecute := false) {
     global toggleMode, lastKey
 
     if (lastKey != key) {
@@ -49,13 +49,19 @@ RunTerminalCommand(key, cmd1, cmd2 := "") {
     }
 
     if (cmd2 = "") {
-        Send(cmd1)
+        SendText(cmd1)
+        if (autoexecute)
+            Send("{Enter}")
     } else {
         if (toggleMode = 0) {
-            Send(cmd1)
+            SendText(cmd1)
+            if (autoexecute)
+                Send("{Enter}")
             toggleMode := 1
         } else {
-            Send(cmd2)
+            SendText(cmd2)
+            if (autoexecute)
+                Send("{Enter}")
             toggleMode := 0
         }
     }

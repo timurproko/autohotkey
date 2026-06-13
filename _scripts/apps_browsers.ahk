@@ -249,8 +249,8 @@ F2:: {
 ;== (F5) ==
 ;== (F6) ==
 
-;== (F7) ==
-F7:: {
+;== (F8) ==
+F8:: {
     if (GetUrlValue("https://www.youtube.com/watch")) {
         Send("+{sc019}")
     }
@@ -265,8 +265,8 @@ F7:: {
     }
 }
 
-;== (F8) ==
-F8:: {
+;== (F9) ==
+F9:: {
     if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/")) {
         Send("{sc039}")
     }
@@ -278,8 +278,8 @@ F8:: {
     }
 }
 
-;== (F9) ==
-F9:: {
+;== (F10) ==
+F10:: {
     if (GetUrlValue("https://www.youtube.com/watch")) {
         Send("+{sc031}")
     }
@@ -294,8 +294,8 @@ F9:: {
     }
 }
 
-;== (F10) ==
-F10:: {
+;== (F11) ==
+F11:: {
     if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc032}")
     }
@@ -307,8 +307,8 @@ F10:: {
     }
 }
 
-;== (F11) ==
-F11:: {
+;== (F12) ==
+F12:: {
     if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc050}")
     }
@@ -320,8 +320,8 @@ F11:: {
     }
 }
 
-;== (F12) ==
-F12:: {
+;== (F13) ==
+F13:: {
     if (GetUrlValue("https://www.youtube.com/watch") or GetUrlValue("https://www.udemy.com/") or GetUrlValue("https://drive.google.com/")) {
         Send("{sc048}")
     }

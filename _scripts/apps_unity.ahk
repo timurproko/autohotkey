@@ -51,8 +51,8 @@ Space:: {
 ; Unity Editor
 #HotIf WinActive(appUnity)
 ^+z:: Send("^y")
-F8:: Send("!p")
-+F8:: Send("!+p")
+F9:: Send("!p")
++F9:: Send("!+p")
 ^F1:: {
     Send("^s")
     Sleep 10
@@ -107,33 +107,6 @@ Space:: Send("{Space}")
 Tab:: Send("{Escape}")
 #HotIf
 
-; 3D Navigation
-; #HotIf WinActive(appUnity)
-; *Space:: {
-;     isSpaceDown := false
-;     if (GetFocusedText("UnityEditor.SceneView")) {
-;         isSpaceDown := true
-;         Send("{Alt Down}")
-;         return
-;     }
-;     else {
-;         if (isSpaceDown == true) {
-;             Send("{Alt Down}")
-;             return
-;         }
-;         else {
-;             Send("{Alt Up}{Space Down}")
-;             return
-;         }
-;     }
-; }
-; *Space Up:: {
-;     ; Send("{Alt Up}{Space Up}")
-;     Send("{Space Up}")
-;     Send("{Alt Up}")
-;     return
-; }
-; #HotIf
 #HotIf WinActive(appUnity)
 *Space::
 {
