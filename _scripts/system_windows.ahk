@@ -76,7 +76,7 @@ F1::
     if WinActive("ahk_exe explorer.exe")
         return
 
-    if WinActive(browserChrome) {
+    if WinActive(browserChrome) || WinActive(browserArc) {
         Run 'chrome.exe "' windowsHelp '"'
         return
     }

@@ -71,5 +71,6 @@ global lastKey := ""
 *u:: RunTerminalCommand('u', 'git pull')
 *x:: RunTerminalCommand('x', 'git reset --hard HEAD')
 *w:: RunTerminalCommand('w', 'git show --name-only ')
+*Esc:: RunTerminalCommand('Esc', '')
 #HotIf
 #HotIf

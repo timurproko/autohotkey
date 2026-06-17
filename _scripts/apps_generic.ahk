@@ -67,9 +67,6 @@ Escape:: WinClose
 #HotIf WinActive(appVSCode) and WinExist(appHindie)
 Escape:: WinActivate(appHindie)
 #HotIf
-; #HotIf WinActive(appVSCode) and WinExist(appHoudini)
-; Escape:: WinActivate(appHoudini)
-; #HotIf
 
 ; Spotify
 #HotIf WinActive(appSpotify) and A_PriorHotkey = "!Space"
